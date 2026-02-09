@@ -3,6 +3,10 @@ Team 7 - Sec 01 | Project Theme is Social Media and Database surrounds Engagemen
 
 ## TEAM MEMEBERS:
 Joshua Darlucio, [WIP]
+Ishita Thethy
+Serife Aynur Kocdas
+Arhaam Azhari
+Tejas Manjunatha
 
 Data Engineer Responsibilities
 
