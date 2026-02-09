@@ -8,7 +8,7 @@ As being the Data Engineer for Team 7, we are responsible for managing the data 
 Dataset Requirements and Selection
 
 As given the project assignemnt instruction the dataset must be large enough to support big data analysis, with at least 100,000 rows or equivalent complexity.
-Therefore, our selected dataset contains over 65 million records, which is far exceeding the minimum requirement and making it suitable for large scale data processing.
+Therefore, our selected dataset contains over 65 million records, which is far exceeding the minimum requirement and makes it suitable for large scale data processing.
 
 Our dataset includes a mix off: 
 
