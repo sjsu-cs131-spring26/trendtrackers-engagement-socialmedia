@@ -1,6 +1,9 @@
 # team7-engagement-socialmedia
 Team 7 - Sec 01 | Project Theme is Social Media and Database surrounds Engagement on Social Media Sites during December 2024.
 
+## TEAM MEMEBERS:
+Joshua Darlucio, [WIP]
+
 Data Engineer Responsibilities
 
 As being the Data Engineer for Team 7, we are responsible for managing the data for this semester's project. This is going to include recognizing and validating a suitable public dataset, which is going to ensure that it meets the course requirements, and documenting its structure and characteristics. We are going to handle dataset acquisition, storage planning, and organization within the GitHub repository. We are also responsible for planning data ingestion on the IBM machines and preparing the dataset for scalable processing using UNIX based tools throughout this semester.
