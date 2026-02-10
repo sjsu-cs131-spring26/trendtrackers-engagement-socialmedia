@@ -1,4 +1,3 @@
-:w
 # trendtrackers-engagement-socialmedia
 
 
