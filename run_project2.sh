@@ -20,7 +20,18 @@ mkdir -p logs
 exec > logs/run_project2.log 2>&1
 
 # Generate 1k sample (preserve header)
-# TEJAS PLEASE ADD WHAT YOU DID TO CREATE SAMPLE HERE!!!
+python3 -c "
+import csv, random
+with open('../data/processed_data_0.tsv', 'r', encoding='utf-8') as f:
+    reader = csv.reader(f, delimiter='\t')
+    header = next(reader)
+    rows = list(reader) # Loads file into memory
+sample = random.sample(rows, min(1000, len(rows)))
+with open('../trendtrackers-engagement-socialmedia/data/sample.tsv', 'w', newline='', encoding='utf-8') as f:
+    writer = csv.writer(f, delimiter='\t')
+    writer.writerow(header)
+    writer.writerows(sample)
+"
 
 # Frequency table: language
 tail -n +2 data/sample.tsv | cut -f5 | grep -E '^[a-z][a-z]$' | sort | uniq -c | sort -nr > out/freq_language.txt
