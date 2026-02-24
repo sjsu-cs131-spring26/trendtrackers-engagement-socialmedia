@@ -1,40 +1,51 @@
 #!/bin/bash
-# run_project2.sh
-# Usage: ./run_project2.sh
-#
-# Dataset path:
-#   data/raw.tsv
-#
-# Delimiter:
-#   Tab (TSV)
-#
-# Assumptions:
-# - First row is header
-# - Columns: 1=date, 3=url, 5=language, 6=primary_theme
+set -e
 
+INPUT_DATASET="$1"
+
+if [ -z "$INPUT_DATASET" ]; then
+  echo "Usage: ./run_project2.sh <dataset_path>"
+  exit 1
+fi
+# 2. Create directories
 mkdir -p data
 mkdir -p out
 mkdir -p logs
 
-# Emit log
+# 3. Log everything
 exec > logs/run_project2.log 2>&1
 
-# Generate 1k sample (preserve header)
-python3 -c "
+echo "Starting pipeline"
+date
+echo "Using dataset: $INPUT_DATASET"
+
+# Generate 1k reproducible sample 
+python3 - << EOF
 import csv, random
-with open('../data/processed_data_0.tsv', 'r', encoding='utf-8') as f:
+
+random.seed(42)
+
+input_path = "$INPUT_DATASET"
+output_path = "data/sample.tsv"
+
+with open(input_path, 'r', encoding='utf-8') as f:
     reader = csv.reader(f, delimiter='\t')
     header = next(reader)
-    rows = list(reader) # Loads file into memory
+    rows = list(reader)
+
 sample = random.sample(rows, min(1000, len(rows)))
-with open('../trendtrackers-engagement-socialmedia/data/sample.tsv', 'w', newline='', encoding='utf-8') as f:
+
+with open(output_path, 'w', newline='', encoding='utf-8') as f:
     writer = csv.writer(f, delimiter='\t')
     writer.writerow(header)
     writer.writerows(sample)
-"
 
-# Frequency table: language
-tail -n +2 data/sample.tsv | cut -f5 | grep -E '^[a-z][a-z]$' | sort | uniq -c | sort -nr > out/freq_language.txt
+print("Sample created at data/sample.tsv")
+EOF
+
+# Frequency table: language (using tee)
+tail -n +2 data/sample.tsv \ | cut -f5 \| grep -E '^[a-z][a-z]$' \ | sort \ | uniq -c \ | sort -nr \ | tee out/freq_language.txt
+
 echo "Created: out/freq_language.txt"
 
 # Frequency table: primary_theme
