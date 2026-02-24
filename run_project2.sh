@@ -41,10 +41,16 @@ with open(output_path, 'w', newline='', encoding='utf-8') as f:
     writer.writerows(sample)
 
 print("Sample created at data/sample.tsv")
-EOF
+EOF #end of file
 
-# Frequency table: language (using tee)
-tail -n +2 data/sample.tsv \ | cut -f5 \| grep -E '^[a-z][a-z]$' \ | sort \ | uniq -c \ | sort -nr \ | tee out/freq_language.txt
+# Frequency table: language (using tee) (spaces so it does not break while running)
+tail -n +2 data/sample.tsv \
+| cut -f5 \
+| grep -E '^[a-z][a-z]$' \
+| sort \
+| uniq -c \
+| sort -nr \
+| tee out/freq_language.txt
 
 echo "Created: out/freq_language.txt"
 
