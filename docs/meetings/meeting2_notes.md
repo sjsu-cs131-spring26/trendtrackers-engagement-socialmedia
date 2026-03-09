@@ -1,7 +1,7 @@
 # Sprint 3 – Meeting 2 Notes
 
 ## Progress Update
-(To be discussed during Meeting 2)
+During Meeting 2, the team went through the progress we all have made so far since Sprint 3 Meeting 1. Each team members shared their updates on their assigned tasks and discussed the current status of the dataset analysis. Initial outputs from the scripts were reviewed to ensure they follow the reproducible workflow required for the project assignment 3.
 
 ## Artifact Status
 (To be updated after progress review)
