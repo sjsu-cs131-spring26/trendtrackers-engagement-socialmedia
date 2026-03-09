@@ -1,0 +1,38 @@
+./scripts/run_sprint3.sh data/sample.tsv $'\t' &
+
+[1] 11649
+
+Sprint 3 run started
+Mon Mar  9 03:07:19 PDT 2026
+Dataset: data/sample.tsv
+Delimiter: '	'
+Generating top_categories.txt
+Generating top_domains.txt
+Generating language_distribution.txt
+Generating keyword_hits_rows.txt
+Generating keyword_hits_summary.txt
+Generating trust_check_missing_primary_theme_count.txt
+Generating assumption_test_language_values_top20.txt
+Sprint 3 run completed
+Mon Mar  9 03:07:19 PDT 2026
+
+jobs
+(no jobs running — script completed quickly)
+
+ps | grep run_sprint3.sh
+11697 ttys000    0:00.01 grep run_sprint3.sh
+
+tail -n 20 out/run_sprint3.log
+Sprint 3 run started
+Mon Mar  9 03:07:19 PDT 2026
+Dataset: data/sample.tsv
+Delimiter: '	'
+Generating top_categories.txt
+Generating top_domains.txt
+Generating language_distribution.txt
+Generating keyword_hits_rows.txt
+Generating keyword_hits_summary.txt
+Generating trust_check_missing_primary_theme_count.txt
+Generating assumption_test_language_values_top20.txt
+Sprint 3 run completed
+Mon Mar  9 03:07:19 PDT 2026
