@@ -19,7 +19,7 @@ This may temporarily delay the completion of some evidence artifacts and script 
 ## Data Validation Update
 Initial checks have been performed to ensure the dataset is structured correctly and ready for analysis. The team verified that the dataset contains the expected fields such as sentiment scores, timestamps, language labels, emotion categories, thematic tags, and extracted keywords.
 
-Additional checks for missing values, duplicate records, and consistent formatting are still in progress. Progress on these checks has been slightly slowed because some team members had midterm exams, but the team is catching up and plans to complete validation before finishing the evidence artifacts.
+Lastly, checks for missing values, duplicate records, and consistent formatting are still in progress. Progress on these checks has been slightly slowed because some team members had midterm exams, but the team is catching up and plans to complete validation before finishing the evidence artifacts.
 
 ## Next Steps
 1) Continue generating the remaining evidence artifacts using UNIX commands.
