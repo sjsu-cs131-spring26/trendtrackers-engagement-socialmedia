@@ -30,7 +30,7 @@ Lastly, checks for missing values, duplicate records, and consistent formatting 
 
 4) Prepare the Stakeholder Decision Brief summarizing findings and recommendations.
    
-5) Commit all outputs to the repository folders (out/evidence/, docs/meetings/).
+5) Commit all outputs to the repository folders (out/results/, docs/meetings/).
    
 6) Monitor progress and coordinate tasks to ensure everything is completed before the submission deadline.
 
