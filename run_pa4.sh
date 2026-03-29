@@ -104,3 +104,86 @@ echo "Cleaned line count:"
 wc -l out/cleaned_dataset.tsv
 
 echo "Cleaning complete."
+echo "Starting AWK processing..."
+# =========================
+# STEP 5: FILTER VALID ROWS
+# =========================
+awk -F'\t' '
+BEGIN { OFS="\t" }
+NR==1 { print; next }
+
+($1 != "NA" && $3 != "NA" && $5 != "NA" && $8 ~ /^-?[0-9]+(\.[0-9]+)?$/) {
+    print
+}
+' out/cleaned_dataset.tsv > out/filtered_sample.tsv
+
+
+# =========================
+# STEP 6: SENTIMENT BUCKETS
+# =========================
+awk -F'\t' '
+BEGIN { OFS="\t" }
+NR==1 { next }
+
+{
+    r = $8 + 0
+
+    if ($8 == "NA") {
+        bucket = "NA"
+    } else if (r >= 0.5) {
+        bucket = "HI"
+    } else if (r >= 0.1) {
+        bucket = "MID"
+    } else if (r > 0) {
+        bucket = "LO"
+    } else if (r == 0) {
+        bucket = "ZERO"
+    } else {
+        bucket = "NEG"
+    }
+
+    c[bucket]++
+}
+
+END {
+    print "bucket\tcount"
+    print "HI\t" c["HI"]+0
+    print "MID\t" c["MID"]+0
+    print "LO\t" c["LO"]+0
+    print "ZERO\t" c["ZERO"]+0
+    print "NEG\t" c["NEG"]+0
+    print "NA\t" c["NA"]+0
+}
+' out/filtered_sample.tsv > out/bucket_summary.tsv
+
+
+# =========================
+# STEP 7: LANGUAGE SUMMARY
+# =========================
+awk -F'\t' '
+BEGIN { OFS="\t" }
+NR==1 { next }
+
+{
+    lang = $5
+    sentiment = $8 + 0
+
+    if ($5 != "NA" && $8 != "NA") {
+        sum[lang] += sentiment
+        count[lang]++
+
+        if (!(lang in min) || sentiment < min[lang]) min[lang] = sentiment
+        if (!(lang in max) || sentiment > max[lang]) max[lang] = sentiment
+    }
+}
+
+END {
+    print "language\tcount\tavg_sentiment\tmin\tmax"
+    for (l in count) {
+        printf "%s\t%d\t%.4f\t%.4f\t%.4f\n", l, count[l], sum[l]/count[l], min[l], max[l]
+    }
+}
+' out/filtered_sample.tsv | sort > out/entity_summary.tsv
+
+
+echo "AWK processing complete."   
