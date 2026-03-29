@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# PA4 Data Cleaning Script
-# Author: Arhaam Azhari
-# Description: Cleans messy TSV dataset using sed + awk
+# Trendtrackers Project Assignment 4 Script
+# Authors: Arhaam Azhari, Serife Aynur Kocdas, Tejas Manjunatha
+# Description: Cleans dataset, then generates output files containing information about social media usage
 
 set -euo pipefail
 
@@ -105,9 +105,8 @@ wc -l out/cleaned_dataset.tsv
 
 echo "Cleaning complete."
 echo "Starting AWK processing..."
-# =========================
-# STEP 5: FILTER VALID ROWS
-# =========================
+
+# Step 5: Filter valid rows
 awk -F'\t' '
 BEGIN { OFS="\t" }
 NR==1 { print; next }
@@ -117,10 +116,7 @@ NR==1 { print; next }
 }
 ' out/cleaned_dataset.tsv > out/filtered_sample.tsv
 
-
-# =========================
-# STEP 6: SENTIMENT BUCKETS
-# =========================
+# Step 6: Sentiment Buckets
 awk -F'\t' '
 BEGIN { OFS="\t" }
 NR==1 { next }
@@ -156,10 +152,11 @@ END {
 }
 ' out/filtered_sample.tsv > out/bucket_summary.tsv
 
+# Step 7: Language Summary
+# 1. Print the header directly to the file first (overwriting if it exists)
+echo -e "language\tcount\tavg_sentiment\tmin\tmax" > out/entity_summary.tsv
 
-# =========================
-# STEP 7: LANGUAGE SUMMARY
-# =========================
+# 2. Process data, sort only the data rows, and append to the file
 awk -F'\t' '
 BEGIN { OFS="\t" }
 NR==1 { next }
@@ -178,12 +175,64 @@ NR==1 { next }
 }
 
 END {
-    print "language\tcount\tavg_sentiment\tmin\tmax"
     for (l in count) {
         printf "%s\t%d\t%.4f\t%.4f\t%.4f\n", l, count[l], sum[l]/count[l], min[l], max[l]
     }
 }
-' out/filtered_sample.tsv | sort > out/entity_summary.tsv
+' out/filtered_sample.tsv | sort >> out/entity_summary.tsv
+
+# Step 8: Top Keywords in primary_theme
+echo "Calculating top primary themes..."
+echo -e "primary_theme\tcount" > out/top_keywords.tsv
+
+awk -F'\t' '
+BEGIN { OFS="\t" }
+NR==1 { next }
+
+{
+    theme = $6
+    if (theme != "NA" && theme != "") {
+        theme_count[theme]++
+    }
+}
+
+END {
+    for (t in theme_count) {
+        print t, theme_count[t]
+    }
+}
+' out/filtered_sample.tsv | sort -t$'\t' -k2,2nr >> out/top_keywords.tsv
 
 
-echo "AWK processing complete."   
+# Step 9: Top URLs
+echo "Calculating top URL domains..."
+echo -e "domain\tcount" > out/top_urls.tsv
+
+awk -F'\t' '
+BEGIN { OFS="\t" }
+NR==1 { next }
+
+{
+    url = $3
+    if (url != "NA" && url != "") {
+        # 1. Strip the http:// or https:// protocol if it exists
+        sub(/^https?:\/\//, "", url)
+        
+        # 2. Strip the first forward slash and everything after it
+        sub(/\/.*/, "", url)
+        
+        # Add the cleaned domain to our count
+        if (url != "") {
+            url_count[url]++
+        }
+    }
+}
+
+END {
+    for (u in url_count) {
+        print u, url_count[u]
+    }
+}
+' out/filtered_sample.tsv | sort -t$'\t' -k2,2nr >> out/top_urls.tsv
+
+echo "AWK processing complete."
