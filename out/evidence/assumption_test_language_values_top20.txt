@@ -16,5 +16,5 @@
    8 .
    7 tr
    6 zh
-   6 Science
    6 id
+   6 Science
