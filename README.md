@@ -1,6 +1,5 @@
 # trendtrackers-engagement-socialmedia
 
-
 ## Team Members: 
 Joshua Darlucio,
 Ishita Thethy,
@@ -33,7 +32,7 @@ The goal of the project is to take raw, unstructured data and transform it into 
 
 We used the **Exorde Social Media Dataset (December 2024, Week 1)** from Hugging Face.
 
-- Size: ~65.5 million records  
+- Size: 65.5 million records  
 - Format: Parquet  
 - Key fields:
   - Text content
@@ -111,7 +110,7 @@ The pipeline was executed using Google Cloud Dataproc in a distributed environme
 
 - Data stored in GCS
 - Spark jobs executed across multiple workers
-- Processing handled ~65 million records efficiently
+- Processing handled 65 million records efficiently
 
 Execution logs and screenshots are included in the report as proof of distributed execution.
 
@@ -119,7 +118,7 @@ Execution logs and screenshots are included in the report as proof of distribute
 
 ## Key Insights
 
-- Most posts are in English (~72% of dataset)
+- Most posts are in English (72% of dataset)
 - User activity is concentrated in a few themes (Entertainment, People, Politics, Technology)
 - Political content shows more negative sentiment compared to other themes
 - A large portion of data comes from platforms like X (Twitter) and Reddit
