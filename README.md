@@ -58,7 +58,7 @@ This dataset was chosen because it is large enough to require distributed proces
 
 - Python 3.x  
 - PySpark  
-- Google Cloud (Dataproc or similar setup)  
+- Google Cloud  
 - Access to dataset in cloud storage (GCS)
 
 ---
