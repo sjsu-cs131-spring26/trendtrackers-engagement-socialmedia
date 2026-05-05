@@ -49,7 +49,6 @@ This dataset was chosen because it is large enough to require distributed proces
 ## Project Structure
 
 - `finaldemo_trendtrackers.ipynb` → Main notebook containing the pipeline and analysis
-- (Optional) Additional scripts / outputs depending on your repo
 
 ---
 
